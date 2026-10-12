@@ -1,0 +1,8 @@
+{
+  "nodes": [
+    {"node_type": "技术落地", "description": "AI Agent 可自主完成多步编码任务，从「补全」走向「端到端交付」，初级编码岗位需求快速萎缩", "trigger_signals": ["Agent 工具链成熟", "大模型上下文窗口突破", "企业 POC 转量产"], "leading_indicators": ["主流 IDE 内置 Agent 模式默认开启", "企业招聘 JD 中「AI 协作」占比上升", "Agent 完成任务的公开成功率持续提升"], "assumptions": ["模型能力按现有节奏提升", "企业愿意把关键流程交予 Agent"], "eta": "2026-2027", "impact_score": 0.85},
+    {"node_type": "行业重构", "description": "软件外包从人月计费转向成果计费，中间层人力被压缩，价值链向「需求定义 + 质量验收」转移", "trigger_signals": ["客户要求按结果付费", "头部厂商降价"], "leading_indicators": ["外包合同中成果条款比例上升", "验收类岗位招聘增加"], "assumptions": ["客户能清晰定义结果", "质量可被客观衡量"], "eta": "2027-2028", "impact_score": 0.8},
+    {"node_type": "政策变更", "description": "AI 生成内容的版权与责任归属监管落地，催生合规与审计需求", "trigger_signals": ["监管征求意见稿", "行业事故"], "leading_indicators": ["监管征求意见稿发布", "行业协会发布自律规范"], "assumptions": ["监管不因产业阻力无限延期"], "eta": "2026", "impact_score": 0.6},
+    {"node_type": "用户习惯", "description": "非技术人员直接「用自然语言做软件」，需求方与生产者边界消融", "trigger_signals": ["低代码/无代码普及", "AI 生成应用平台兴起"], "leading_indicators": ["非技术用户创建应用数量增长", "企业内部自助工具数量上升"], "assumptions": ["生成结果可靠性足以被非技术用户接受"], "eta": "2027", "impact_score": 0.7}
+  ]
+}

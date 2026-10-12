@@ -1,0 +1,27 @@
+{
+  "dimensions": ["技术", "政策", "市场", "资本", "社会", "人才"],
+  "old_era": [
+    {"claim": "传统软件外包按「人月」计费，交付周期长、边际成本高", "category": "商业模式", "dimension": "市场", "source_type": "先验", "source_hint": "行业惯例", "credibility": 0.8, "recency": "长期", "confidence": 0.85},
+    {"claim": "初级程序员的核心能力是「手写样板代码」，可替代性强", "category": "岗位", "dimension": "人才", "source_type": "先验", "source_hint": "招聘JD结构", "credibility": 0.7, "recency": "2025年", "confidence": 0.8},
+    {"claim": "企业内部流程依赖人工评审与口头传承，知识难以沉淀", "category": "规则", "dimension": "社会", "source_type": "先验", "source_hint": "模型先验", "credibility": 0.5, "recency": "长期", "confidence": 0.55},
+    {"claim": "中小团队缺乏成本可承受的自动化测试与运维能力", "category": "技术", "dimension": "技术", "source_type": "先验", "source_hint": "行业调研", "credibility": 0.6, "recency": "2025年", "confidence": 0.6}
+  ],
+  "new_era": [
+    {"claim": "AI 编程助手使「写代码」边际成本趋近于零，人效提升 3-10 倍", "category": "技术", "dimension": "技术", "source_type": "先验", "source_hint": "公开测评", "credibility": 0.7, "recency": "2026年", "confidence": 0.75},
+    {"claim": "出现「AI 提示词工程师 / AI 工作流编排者」等新岗位雏形", "category": "岗位", "dimension": "人才", "source_type": "先验", "source_hint": "招聘平台", "credibility": 0.6, "recency": "2026年", "confidence": 0.65},
+    {"claim": "「按结果交付」的软件服务（成果计费）开始侵蚀人月模式", "category": "商业模式", "dimension": "市场", "source_type": "先验", "source_hint": "市场观察", "credibility": 0.55, "recency": "2026年", "confidence": 0.6},
+    {"claim": "监管开始关注 AI 生成代码的版权与安全合规", "category": "政策", "dimension": "政策", "source_type": "先验", "source_hint": "政策动向", "credibility": 0.5, "recency": "2026年", "confidence": 0.5},
+    {"claim": "AI 基础设施融资集中，头部模型与工具链获得大量资本注入", "category": "商业模式", "dimension": "资本", "source_type": "先验", "source_hint": "模型先验", "credibility": 0.45, "recency": "2026年", "confidence": 0.5}
+  ],
+  "gaps": [
+    "会写代码的人越来越多，但「会定义问题、验收 AI 产出」的人稀缺",
+    "企业想用 AI 降本，却缺可信的 AI 产出质量评估标准",
+    "个人开发者有能力用 AI 提效，但缺把能力变现为产品的路径",
+    "AI 生成代码的安全/合规配套工具几乎空白"
+  ],
+  "open_questions": [
+    "各行业 AI 生成代码的合规强制要求具体何时落地、标准如何？",
+    "中小企业的 AI 编码工具实际付费意愿与预算区间是多少？",
+    "AI 工作流编排岗位在公开招聘中的真实数量与薪资水平？"
+  ]
+}

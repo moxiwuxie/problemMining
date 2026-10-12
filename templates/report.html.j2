@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>趋势问题挖掘与变现规划报告 · {{ t.topic }}</title>
+<style>
+  :root { --bg:#0f1115; --card:#181b22; --fg:#e7e9ee; --muted:#9aa3b2; --accent:#5b8cff; --line:#272b34; --warn:#ffd479; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.7 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif; }
+  .wrap { max-width:960px; margin:0 auto; padding:40px 20px 80px; }
+  h1 { font-size:28px; margin:0 0 8px; }
+  h2 { font-size:20px; margin:40px 0 12px; padding-bottom:8px; border-bottom:1px solid var(--line); color:var(--accent); }
+  h3 { font-size:16px; margin:24px 0 8px; }
+  h4 { font-size:14px; margin:16px 0 6px; color:var(--muted); }
+  .sub { color:var(--muted); font-size:13px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:16px 18px; margin:12px 0; }
+  table { width:100%; border-collapse:collapse; margin:12px 0; font-size:14px; }
+  th,td { border:1px solid var(--line); padding:8px 10px; text-align:left; }
+  th { background:#1e222b; color:var(--muted); font-weight:600; }
+  ul,ol { padding-left:20px; margin:8px 0; }
+  li { margin:4px 0; }
+  .tag { display:inline-block; background:#222736; color:var(--accent); border-radius:6px; padding:1px 8px; font-size:12px; margin-right:6px; }
+  .score { color:var(--warn); font-weight:700; }
+  .quote { border-left:3px solid var(--accent); padding-left:12px; color:var(--muted); }
+  details summary { cursor:pointer; color:var(--accent); }
+  .tw { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .throw { border-left:4px solid var(--warn); }
+  .throw .h { font-weight:700; font-size:15px; }
+  .model-table td:first-child { color:var(--accent); font-weight:600; white-space:nowrap; }
+  @media (max-width:640px) {
+    .wrap { padding:20px 12px 60px; }
+    h1 { font-size:21px; }
+    h2 { font-size:17px; margin:28px 0 10px; }
+    .card { padding:12px; }
+    p, li { font-size:14px; }
+    table { font-size:12px; }
+    th, td { padding:7px 8px; white-space:nowrap; }
+    details summary { font-size:14px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>AI时代趋势问题挖掘与变现规划报告</h1>
+  <p class="sub">主题：{{ t.topic }}｜行业：{{ t.industry or '不限' }}｜时间跨度：未来 {{ t.horizon_years }} 年｜目标人群：{{ t.persona }}</p>
+  <p class="sub">run_id={{ meta.run_id }}｜provider={{ meta.provider }}/{{ meta.model }}｜dry_run={{ meta.dry_run }}</p>
+  <p class="quote">核心价值观：所有时代更替的痛点，都是普通人的变现机会。</p>
+
+  <h2>摘要：核心问题抛出</h2>
+  <ol>{% for p in ranked_problems %}
+    <li class="card throw">
+      <div class="h">{{ p.id }} {{ p.title }}</div>
+      <div class="sub">严重度：{{ p.severity|stars }}{% if eval_by_id.get(p.id) %}｜综合分 {{ eval_by_id[p.id].score }}{% endif %}｜分析模型：{{ p.derived_models|join('、') or '—' }}</div>
+      <div>矛盾：{{ p.conflict or '—' }}</div>
+      <div class="sub">受影响：{{ p.affected|join('、') or '—' }}</div>
+    </li>
+  {% endfor %}</ol>
+
+  <h2>一、分析模型总览（外显）</h2>
+  <p class="sub">本节显性列出本报告使用了哪些分析模型、各自产出什么，便于追溯与质疑每一个结论。</p>
+  <div class="tw"><table class="model-table">
+    <tr><th>分析模型</th><th>作用</th><th>本次产出</th></tr>
+    {% for name, role, output in model_rows %}
+    <tr><td>{{ name }}</td><td>{{ role }}</td><td>{{ output }}</td></tr>
+    {% endfor %}
+  </table></div>
+  {% if report.problems %}
+  <div class="card"><h3>问题 ← 分析模型 映射</h3>
+    <ul>{% for p in report.problems %}<li><span class="tag">{{ p.id }}</span>{{ p.derived_models|join('、') or '—' }}</li>{% endfor %}</ul>
+  </div>
+  {% endif %}
+
+  <h2>二、趋势信息检索（多维信息收集）</h2>
+  {% if report.retrieved %}
+  <p class="sub">覆盖维度：{{ report.retrieved.dimensions|join('、') or '未标注' }}</p>
+  <div class="card"><h3>旧时代存量信息</h3>
+    <div class="tw"><table>
+      <tr><th>编号</th><th>维度</th><th>类型</th><th>断言</th><th>来源</th><th>可信度</th><th>时效</th></tr>
+      {% for e in report.retrieved.old_era %}
+      <tr><td>{{ e.code or '—' }}</td><td><span class="tag">{{ e.dimension or e.category }}</span></td><td>{{ e.source_type or '先验' }}</td>
+        <td>{{ e.claim }}</td><td>{{ e.source_hint or '模型先验' }}</td><td>{{ e.credibility }}</td><td>{{ e.recency or '—' }}</td></tr>
+      {% endfor %}
+    </table></div>
+  </div>
+  <div class="card"><h3>新时代增量信息</h3>
+    <div class="tw"><table>
+      <tr><th>编号</th><th>维度</th><th>类型</th><th>断言</th><th>来源</th><th>可信度</th><th>时效</th></tr>
+      {% for e in report.retrieved.new_era %}
+      <tr><td>{{ e.code or '—' }}</td><td><span class="tag">{{ e.dimension or e.category }}</span></td><td>{{ e.source_type or '先验' }}</td>
+        <td>{{ e.claim }}</td><td>{{ e.source_hint or '模型先验' }}</td><td>{{ e.credibility }}</td><td>{{ e.recency or '—' }}</td></tr>
+      {% endfor %}
+    </table></div>
+  </div>
+  <div class="card"><h3>空白 / 断层点</h3>
+    <ul>{% for g in report.retrieved.gaps %}<li>{{ g }}</li>{% endfor %}</ul>
+  </div>
+  {% if report.retrieved.open_questions %}
+  <div class="card"><h3>信息缺口（待核实）</h3>
+    <ul>{% for q in report.retrieved.open_questions %}<li>{{ q }}</li>{% endfor %}</ul>
+  </div>
+  {% endif %}
+  {% endif %}
+
+  <h2>三、结构化分析框架</h2>
+  {% if report.analysis_frames %}
+  <div class="card">
+    {% for f in report.analysis_frames %}
+    <h4>{{ f.framework }} · {{ f.dimension }}</h4>
+    <ul>{% for finding in f.findings %}<li>{{ finding }}</li>{% endfor %}
+      {% if f.implications %}<li class="sub">推论：{{ f.implications }}</li>{% endif %}
+    </ul>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <h2>四、关键节点拆解</h2>
+  <div class="card"><ul>{% for n in report.inflections %}
+    <li><span class="tag">{{ n.node_type }}</span>{{ n.description }}
+      <div class="sub">触发信号：{{ n.trigger_signals|join('；') or '—' }}</div>
+      <div class="sub">领先指标：{{ n.leading_indicators|join('；') or '—' }}</div>
+      <div class="sub">前提假设：{{ n.assumptions|join('；') or '—' }}</div>
+      <div class="sub">预计：{{ n.eta }}｜影响：{{ n.impact_score }}</div>
+    </li>
+  {% endfor %}</ul></div>
+
+  <h2>五、双模式推演</h2>
+  <div class="card"><h3>5.1 线性推演（确定性）</h3>
+    <ul>{% if report.linear %}{% for h in report.linear.timeline %}
+      <li><span class="tag">{{ h.horizon }}</span>{{ h.statement }}
+        <div class="sub">驱动：{{ h.drivers|join('、') or '—' }}｜阻碍：{{ h.blockers|join('、') or '—' }}｜确信度：{{ h.confidence }}</div>
+        {% if h.counterpoints %}<div class="sub">反方/证伪：{{ h.counterpoints|join('、') }}</div>{% endif %}
+        {% if h.leading_indicators %}<div class="sub">领先指标：{{ h.leading_indicators|join('、') }}</div>{% endif %}
+      </li>
+    {% endfor %}{% endif %}</ul>
+  </div>
+  <div class="card"><h3>5.2 随机推演（混沌）</h3>
+    {% if report.stochastic %}
+    <p class="sub">视角：{{ report.stochastic.persona }}｜temperature={{ report.stochastic.temperature }}｜seed={{ report.stochastic.seed }}</p>
+    <ul>{% for h in report.stochastic.timeline %}
+      <li><span class="tag">{{ h.horizon }}</span>{{ h.statement }}
+        <div class="sub">驱动：{{ h.drivers|join('、') or '—' }}｜阻碍：{{ h.blockers|join('、') or '—' }}｜确信度：{{ h.confidence }}</div>
+        {% if h.counterpoints %}<div class="sub">反方/证伪：{{ h.counterpoints|join('、') }}</div>{% endif %}
+        {% if h.leading_indicators %}<div class="sub">领先指标：{{ h.leading_indicators|join('、') }}</div>{% endif %}
+      </li>
+    {% endfor %}</ul>
+    {% if report.stochastic.branches %}<h3>黑天鹅分支</h3>
+      <ul>{% for b in report.stochastic.branches %}<li>{{ b }}</li>{% endfor %}</ul>
+    {% endif %}
+    {% endif %}
+  </div>
+
+  <h2>六、关键不确定性与监测信号</h2>
+  {% if report.uncertainties %}
+  <div class="tw"><table>
+    <tr><th>不确定性</th><th>影响</th><th>可能</th><th>监测信号</th></tr>
+    {% for u in report.uncertainties %}
+    <tr><td>{{ u.topic }}</td><td>{{ u.impact }}</td><td>{{ u.likelihood }}</td><td>{{ u.monitoring_signals|join('；') or '—' }}</td></tr>
+    {% endfor %}
+  </table></div>
+  <div class="card"><ul>{% for u in report.uncertainties %}
+    <li><b>{{ u.topic }}</b>：{{ u.divergence }}
+      <div class="sub">可能走向：{{ u.outcomes|join('、') or '—' }}</div>
+    </li>
+  {% endfor %}</ul></div>
+  {% endif %}
+
+  <h2>七、未来情景与概率</h2>
+  <div class="tw">
+  <table>
+    <tr><th>情景</th><th>概率</th><th>生效时间</th><th>破坏程度</th><th>红利空间</th><th>来源</th></tr>
+    {% for s in report.scenarios %}
+    <tr><td>{{ s.name }}</td><td>{{ '%.2f'|format(s.probability) }}</td><td>{{ s.effective_time }}</td><td>{{ s.disruption }}</td><td>{{ s.dividend_space }}</td><td>{{ s.derived_from }}</td></tr>
+    {% endfor %}
+  </table>
+  </div>
+  <div class="card"><ul>{% for s in report.scenarios %}
+    <li><b>{{ s.name }}</b>：{{ s.summary }} <span class="sub">（人群：{{ s.affected_groups|join('、') or '—' }}；行业：{{ s.affected_industries|join('、') or '—' }}）</span></li>
+  {% endfor %}</ul></div>
+
+  <h2>八、时代性问题清单（含根因与分析模型）</h2>
+  {% for p in report.problems %}
+  <div class="card">
+    <h3>{{ p.id }} {{ p.title }} <span class="tag">{{ p.category }}</span></h3>
+    <p class="sub">分析模型：{{ p.derived_models|join('、') or '—' }}｜严重程度：{{ p.severity|stars }}</p>
+    <p><b>矛盾：</b>{{ p.conflict }}</p>
+    <p><b>根因：</b>{{ p.root_cause or '—' }}</p>
+    <p><b>为何未解决：</b>{{ p.why_unsolved or '—' }}</p>
+    <p class="sub">受影响人群：{{ p.affected|join('、') or '—' }}</p>
+    <p>{{ p.description }}</p>
+    {% if p.evidence_refs %}<p class="sub">证据出处：{{ p.evidence_refs|join('；') }}</p>{% endif %}
+  </div>
+  {% endfor %}
+
+  <h2>九、五维量化评估与结构化解法（按综合分排序）</h2>
+  <div class="tw">
+  <table>
+    <tr><th>问题</th><th>难度</th><th>成本</th><th>紧急度</th><th>收益空间</th><th>综合分</th></tr>
+    {% for e in report.evaluations %}
+    <tr>
+      <td>{{ e.problem_id }} {{ problem_title.get(e.problem_id, '') }}</td>
+      <td>{{ e.difficulty|stars }}</td><td>{{ e.cost_level }}</td>
+      <td>{{ e.urgency|stars }}</td><td>{{ e.revenue_potential|stars }}</td>
+      <td class="score">{{ e.score }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  </div>
+  {% for e in report.evaluations %}
+  <details><summary>{{ e.problem_id }} 解决路径与结构化解法</summary>
+    <p><b>成本估算：</b>{{ e.cost_estimate or '—' }}</p>
+    <p><b>标准化解决路径：</b>{{ e.solution_path or '—' }}</p>
+    {% if e.method %}
+    <p><b>解法概述：</b>{{ e.method.summary or '—' }}</p>
+    <p><b>执行步骤：</b>{{ e.method.steps|join(' → ') or '—' }}</p>
+    <p><b>所需工具：</b>{{ e.method.tools|join('、') or '—' }}</p>
+    <p><b>所需知识：</b>{{ e.method.knowledge|join('、') or '—' }}</p>
+    <p><b>里程碑：</b>{{ e.method.milestones|join('；') or '—' }}</p>
+    <p><b>衡量指标：</b>{{ e.method.metrics|join('；') or '—' }}</p>
+    <p><b>最小可交付（MVP）：</b>{{ e.method.mvp or '—' }}</p>
+    <p><b>验证实验：</b>{{ e.method.validation_experiment or '—' }}</p>
+    <p><b>避坑点：</b>{{ e.method.pitfalls|join('；') or '—' }}</p>
+    {% endif %}
+  </details>
+  {% endfor %}
+
+  <h2>十、变现工程规划</h2>
+  {% if report.plan %}
+  <div class="card"><h3>能力适配</h3>
+    <ul>{% for k, v in report.plan.capability_fit.items() %}
+      <li><b>{{ k }}</b>：{{ v|join('、') if v is iterable and v is not string else v }}</li>
+    {% endfor %}</ul>
+  </div>
+  {% if report.plan.roadmap_30_60_90 %}
+  <div class="card"><h3>90 天落地路线图</h3>
+    {% for phase in report.plan.roadmap_30_60_90 %}
+    <h4>{{ phase.window }}｜{{ phase.goal }}</h4>
+    <ul>{% for task in phase.tasks %}<li>{{ task }}</li>{% endfor %}
+      {% if phase.metrics %}<li class="sub">验收指标：{{ phase.metrics|join('；') }}</li>{% endif %}
+    </ul>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <div class="card"><h3>短期落地任务</h3>
+    <ul>{% for x in report.plan.short_term_tasks %}<li>{{ x }}</li>{% endfor %}</ul>
+  </div>
+  <div class="card"><h3>中长期趋势卡位</h3>
+    <ul>{% for x in report.plan.mid_long_positioning %}<li>{{ x }}</li>{% endfor %}</ul>
+  </div>
+  <div class="card"><h3>变现路径</h3>
+    <ul>{% for m in report.plan.monetization_paths %}
+      <li><b>{{ m.model }}</b>｜定价：{{ m.pricing }}
+        <div class="sub">前 100 个客户：{{ m.first_100_customers }}｜里程碑：{{ m.milestone }}｜关联问题：{{ m.related_problem_ids|join('、') or '—' }}</div>
+      </li>
+    {% endfor %}</ul>
+  </div>
+  <div class="card"><h3>持续迭代学习</h3>
+    <ul>{% for x in report.plan.learning_loop %}<li>{{ x }}</li>{% endfor %}</ul>
+  </div>
+  {% endif %}
+
+  <h2>十一、风险规避</h2>
+  <div class="card"><ul>{% if report.plan %}{% for x in report.plan.risks %}<li>{{ x }}</li>{% endfor %}{% endif %}</ul></div>
+
+  {% if evidence_index %}
+  <h2>附一、信息源清单</h2>
+  <div class="tw"><table>
+    <tr><th>编号</th><th>信息断言</th><th>类型</th><th>来源</th><th>可信度</th><th>时效</th></tr>
+    {% for e in evidence_index %}
+    <tr><td>{{ e.code or '—' }}</td><td>{{ e.claim }}</td><td>{{ e.source_type or '先验' }}</td>
+      <td>{{ e.source_hint or '模型先验' }}</td><td>{{ e.credibility }}</td><td>{{ e.recency or '—' }}</td></tr>
+    {% endfor %}
+  </table></div>
+  {% endif %}
+
+  {% if meta.warnings %}
+  <h2>附二、运行提示</h2>
+  <div class="card"><ul>{% for w in meta.warnings %}<li>{{ w }}</li>{% endfor %}</ul></div>
+  {% endif %}
+</div>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "timeline": [
+    {"horizon": "短期", "statement": "AI 编程助手在团队内普及，个人产出效率显著提升，但团队流程与考核仍未随之调整，出现「工具用了、效率没变现」的落差", "drivers": ["工具易获得", "个体自觉使用"], "blockers": ["流程未变", "考核按工时"], "counterpoints": ["若企业快速调整考核，提效可迅速变现"], "leading_indicators": ["团队内 AI 工具使用率", "个人产出时长变化"], "confidence": 0.8},
+    {"horizon": "中期", "statement": "企业将 AI 产出纳入正式流程，出现「AI 工作流编排」岗位，初级编码岗位规模收缩", "drivers": ["降本压力", "工具链标准化"], "blockers": ["质量与合规风险", "组织惯性"], "counterpoints": ["若质量事故频发，企业可能暂缓纳入正式流程"], "leading_indicators": ["AI 工作流相关岗位招聘量", "企业 AI 编码规范出台"], "confidence": 0.65},
+    {"horizon": "长期", "statement": "软件生产以「定义问题 + 验收结果」为核心，人力集中在高价值判断与创新环节，行业进入新稳态", "drivers": ["成本结构重塑", "能力分层固化"], "blockers": ["监管不确定性", "人才培养滞后"], "counterpoints": ["若监管要求人工复核关键代码，自动化程度会受限"], "leading_indicators": ["验收类岗位占比", "教育体系课程调整"], "confidence": 0.5}
+  ]
+}

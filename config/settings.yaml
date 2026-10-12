@@ -1,0 +1,38 @@
+# 全局运行参数
+default_provider: deepseek
+output_dir: output
+max_retries: 3
+retry_backoff_seconds: 1.0
+request_timeout: 120
+max_tokens: 4096
+
+# 上下文控制（避免长 JSON 截断 + 控制 token 成本）
+max_evidence: 12
+max_inflections: 10
+max_problems: 15
+
+# 本地报告服务（run/start.sh 使用）
+# 专用端口：若被占用会自动向后顺延，避免与其他项目冲突；可被环境变量 PORT 覆盖。
+# host 默认 0.0.0.0，允许同一局域网（WiFi）下的手机访问；只想本机访问改成 127.0.0.1。
+server:
+  host: 0.0.0.0
+  port: 8770
+  port_scan_limit: 50
+
+
+# 信息收集（s1）：实时检索后端
+# enabled=false 或未配置 api_key 时，自动降级为模型先验，并在证据上标记 source_type=先验。
+search:
+  enabled: false
+  provider: tavily
+  api_key_env: TAVILY_API_KEY
+  max_results_per_dimension: 3
+  dimensions: [技术, 政策, 市场, 资本, 社会, 人才]
+
+
+# 五维评分权重（用于计算综合 score）
+score_weights:
+  difficulty: 0.25      # 难度越低分越高（内部取反）
+  urgency: 0.25
+  revenue_potential: 0.35
+  cost: 0.15           # 成本越低分越高（内部取反）

@@ -1,0 +1,13 @@
+{
+  "frames": [
+    {"framework": "PESTEL", "dimension": "政治", "findings": ["多国将 AI 生成内容纳入监管议程", "数据与算法责任开始立法"], "implications": "合规能力将从加分项变为准入项，早期布局者形成壁垒"},
+    {"framework": "PESTEL", "dimension": "经济", "findings": ["软件交付成本结构被重写", "企业 IT 预算向 AI 工具倾斜"], "implications": "按结果计费会挤压中间层，产生服务化变现窗口"},
+    {"framework": "PESTEL", "dimension": "社会", "findings": ["从业者对职业路径普遍焦虑", "非技术人员开始直接做软件"], "implications": "转型陪伴与技能重构需求上升"},
+    {"framework": "PESTEL", "dimension": "技术", "findings": ["代码生成边际成本趋零", "Agent 端到端交付逐步成熟"], "implications": "价值从「写」转向「定义与验收」"},
+    {"framework": "PESTEL", "dimension": "法律", "findings": ["AI 生成代码版权归属不明确"], "implications": "溯源与审计存在空白市场"},
+    {"framework": "价值链", "dimension": "上游", "findings": ["模型与工具链高度集中", "开源冲击频繁"], "implications": "避免绑定单一模型，保持工具中立性"},
+    {"framework": "价值链", "dimension": "中游", "findings": ["交付环节人力被压缩", "组织流程尚未适配"], "implications": "流程重构咨询与验收体系是切口"},
+    {"framework": "价值链", "dimension": "下游", "findings": ["客户更关注结果与风险", "对 AI 质量缺乏判断力"], "implications": "验收标准与信任背书可直接变现"},
+    {"framework": "采用曲线", "dimension": "早期采用者", "findings": ["技术团队已大规模试用 AI 助手", "个体提效明显但未变现"], "implications": "当前处于早期采用者向早期大众过渡的窗口期"}
+  ]
+}

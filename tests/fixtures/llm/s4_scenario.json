@@ -1,0 +1,8 @@
+{
+  "scenarios": [
+    {"name": "保守", "probability": 0.2, "effective_time": "2027", "affected_groups": ["传统外包团队"], "affected_industries": ["软件外包"], "disruption": 2, "dividend_space": 2, "derived_from": "linear", "summary": "AI 编程助手缓慢渗透，流程基本不变，效率红利多被甲方拿走"},
+    {"name": "常规", "probability": 0.45, "effective_time": "2027-2028", "affected_groups": ["初级开发者", "中小团队"], "affected_industries": ["软件开发", "企业信息化"], "disruption": 3, "dividend_space": 4, "derived_from": "blend", "summary": "AI 工作流进入正式流程，出现新的岗位与工具生态，个体可通过卡位新岗位获益"},
+    {"name": "激进", "probability": 0.25, "effective_time": "2028", "affected_groups": ["初级程序员", "测试/运维"], "affected_industries": ["软件外包", "IT 服务"], "disruption": 5, "dividend_space": 3, "derived_from": "linear", "summary": "AI Agent 端到端交付成熟，初级编码岗位大规模收缩，价值向需求定义与验收转移"},
+    {"name": "混沌", "probability": 0.1, "effective_time": "2026-2029", "affected_groups": ["独立开发者", "合规从业者"], "affected_industries": ["AI 工具", "合规审计"], "disruption": 4, "dividend_space": 5, "derived_from": "stochastic", "summary": "突发变量（开源冲击 / 安全事故 / 监管突变）重塑格局，小众场景出现高利润空白"}
+  ]
+}

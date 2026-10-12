@@ -1,0 +1,21 @@
+# OpenAI 兼容提供方定义。api_key 从环境变量读取（见 api_key_env）。
+# 通过 --provider 覆盖，或修改 settings.yaml 的 default_provider。
+providers:
+  deepseek:
+    base_url: https://api.deepseek.com/v1
+    model: deepseek-chat
+    api_key_env: LLM_API_KEY
+    supports_json_object: true
+    default_temperature: 0.4
+  qwen:
+    base_url: https://dashscope.aliyuncs.com/compatible-mode/v1
+    model: qwen-plus
+    api_key_env: LLM_API_KEY
+    supports_json_object: true
+    default_temperature: 0.4
+  openai:
+    base_url: https://api.openai.com/v1
+    model: gpt-4o-mini
+    api_key_env: LLM_API_KEY
+    supports_json_object: true
+    default_temperature: 0.4

@@ -1,0 +1,21 @@
+[trendminer] 本机访问：http://127.0.0.1:8770/
+[trendminer] 手机访问（同一 WiFi）：http://192.168.101.7:8770/
+[trendminer] 服务目录：/Users/xiaoxu/Desktop/PycharmProjects/problemMining/output
+[trendminer] Ctrl+C 停止
+[trendminer] "GET / HTTP/1.1" 200 -
+[trendminer] "GET /20261010_221133_AI%e7%bc%96%e7%a8%8b/report.html HTTP/1.1" 200 -
+[trendminer] "GET /20261010_221133_AI%e7%bc%96%e7%a8%8b/report.html HTTP/1.1" 200 -
+[trendminer] "GET / HTTP/1.1" 200 -
+[trendminer] code 404, message File not found
+[trendminer] "GET /favicon.ico HTTP/1.1" 404 -
+[trendminer] "GET /20261010_221133_AI%E7%BC%96%E7%A8%8B/report.html HTTP/1.1" 200 -
+[trendminer] code 404, message File not found
+[trendminer] "GET /favicon.ico HTTP/1.1" 404 -
+[trendminer] "GET /20261010_072803_AI%E7%BC%96%E7%A8%8B/report.html HTTP/1.1" 200 -
+[trendminer] code 404, message File not found
+[trendminer] "GET /favicon.ico HTTP/1.1" 404 -
+[trendminer] "GET / HTTP/1.1" 200 -
+[trendminer] "GET / HTTP/1.1" 200 -
+[trendminer] "GET /20261010_222243_AI%E7%BC%96%E7%A8%8B/report.html HTTP/1.1" 200 -
+[trendminer] code 404, message File not found
+[trendminer] "GET /favicon.ico HTTP/1.1" 404 -
